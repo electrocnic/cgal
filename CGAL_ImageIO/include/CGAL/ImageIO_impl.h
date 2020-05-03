@@ -20,6 +20,7 @@
 // Suppress deprecated warning for fileno and strdup
 #  pragma warning(disable: 4127 4706 4996) 
 
+#define _POSIX_C_SOURCE 200809L
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -27,10 +28,11 @@
 #include <stdio.h>
 #endif
 
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdlib.h>
 #include <string.h>
+#include <cstring>
 
 /* formats actuellement lus 
 
@@ -877,7 +879,18 @@ _image* _readNonInterlacedImage(const char *name) {
 
 
 
+inline char* strdup (const char* s)
+{
+  size_t slen = strlen(s);
+  char* result = (char*)malloc(slen + 1);
+  if(result == NULL)
+  {
+    return NULL;
+  }
 
+  memcpy(result, s, slen+1);
+  return result;
+}
 
 
 
